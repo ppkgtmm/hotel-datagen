@@ -78,7 +78,6 @@ class DataGenerator:
 if __name__ == "__main__":
     load_dotenv()
     data_dir = getenv("SEED_DIR")
-    makedirs(data_dir, exist_ok=True)
 
     locations = DataGenerator.get_locations()
     amenities = DataGenerator.to_dataframe(addons)
@@ -108,9 +107,9 @@ if __name__ == "__main__":
 
     print(users, all_guests, room_types, amenities, rooms, bookings)
 
-    # users.to_csv(path.join(data_dir, "users.csv"), index=False)
-    # all_guests.to_csv(path.join(data_dir, "guests.csv"), index=False)
-    # room_types.to_csv(path.join(data_dir, "room_types.csv"), index=False)
-    # amenities.to_csv(path.join(data_dir, "addons.csv"), index=False)
-    # rooms.to_csv(path.join(data_dir, "rooms.csv"), index=False)
-    # bookings.to_csv(path.join(data_dir, "bookings.csv"), index=False)
+    users.to_csv(path.join(data_dir, "users.csv"), index=False)
+    all_guests.to_csv(path.join(data_dir, "guests.csv"), index=False)
+    room_types.to_csv(path.join(data_dir, "room_types.csv"), index=False)
+    amenities.to_csv(path.join(data_dir, "addons.csv"), index=False)
+    rooms.to_csv(path.join(data_dir, "rooms.csv"), index=False)
+    bookings.to_csv(path.join(data_dir, "bookings.csv"), index=False)
