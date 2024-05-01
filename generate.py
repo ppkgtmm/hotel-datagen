@@ -105,7 +105,7 @@ if __name__ == "__main__":
     bookings = bookings.drop(columns=["idx"])
     bookings = bookings.rename(columns={"email": "user"})
 
-    print(users, all_guests, room_types, amenities, rooms, bookings)
+    # print(users, all_guests, room_types, amenities, rooms, bookings)
 
     users.to_csv(path.join(data_dir, "users.csv"), index=False)
     all_guests.to_csv(path.join(data_dir, "guests.csv"), index=False)
