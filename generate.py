@@ -3,7 +3,7 @@ from faker import Faker
 from faker.generator import random
 from datetime import timedelta
 from dotenv import load_dotenv
-from os import getenv
+from os import getenv, path, makedirs
 from constants import *
 
 
@@ -77,6 +77,8 @@ class DataGenerator:
 
 if __name__ == "__main__":
     load_dotenv()
+    data_dir = getenv("SEED_DIR")
+    makedirs(data_dir)
 
     locations = DataGenerator.get_locations()
     amenities = DataGenerator.to_dataframe(addons)
@@ -104,9 +106,9 @@ if __name__ == "__main__":
     bookings = bookings.drop(columns=["idx"])
     bookings = bookings.rename(columns={"email": "user"})
 
-    users.to_csv("users.csv", index=False)
-    all_guests.to_csv("guests.csv", index=False)
-    room_types.to_csv("room_types.csv", index=False)
-    amenities.to_csv("addons.csv", index=False)
-    rooms.to_csv("rooms.csv", index=False)
-    bookings.to_csv("bookings.csv", index=False)
+    users.to_csv(path.join(data_dir, "users.csv"), index=False)
+    all_guests.to_csv(path.join(data_dir, "guests.csv"), index=False)
+    room_types.to_csv(path.join(data_dir, "room_types.csv"), index=False)
+    amenities.to_csv(path.join(data_dir, "addons.csv"), index=False)
+    rooms.to_csv(path.join(data_dir, "rooms.csv"), index=False)
+    bookings.to_csv(path.join(data_dir, "bookings.csv"), index=False)
