@@ -75,7 +75,7 @@ class DataGenerator:
         return persons
 
 
-def generate_data():
+if __name__ == "__main__":
     load_dotenv()
     data_dir = getenv("SEED_DIR")
     makedirs(data_dir)
