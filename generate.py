@@ -2,9 +2,8 @@ import pandas as pd
 from faker import Faker
 from faker.generator import random
 from datetime import timedelta
-from dotenv import load_dotenv
-from os import getenv, path, makedirs
-from constants import *
+from os import getenv
+from constants import room_variations
 
 
 class DataGenerator:
@@ -73,42 +72,4 @@ class DataGenerator:
                 )
             )
         return persons
-
-
-if __name__ == "__main__":
-    load_dotenv()
-    data_dir = getenv("SEED_DIR")
-    makedirs(data_dir)
-
-    locations = DataGenerator.get_locations()
-    amenities = DataGenerator.to_dataframe(addons)
-    room_types = DataGenerator.to_dataframe(room_variations)
-
-    datagen = DataGenerator(getenv("SEED"))
-
-    users = datagen.generate_persons(num_users, locations)
-    guests = datagen.generate_persons(num_guests, locations)
-
-    all_guests = DataGenerator.to_dataframe(users + guests)
-    all_guests = all_guests.drop_duplicates(subset=["email"])
-
-    users = DataGenerator.to_dataframe(users)
-    users = users.drop_duplicates(subset=["email"])
-    users = users.drop(columns=["dob"])
-
-    rooms = datagen.generate_rooms(floors, floor_rooms)
-    rooms = DataGenerator.to_dataframe(rooms)
-
-    bookings = datagen.generate_bookings(num_bookings, max_stay)
-    bookings = DataGenerator.to_dataframe(bookings)
-    bookings["idx"] = bookings.index % users.shape[0]
-    bookings = bookings.merge(users["email"], left_on="idx", right_index=True)
-    bookings = bookings.drop(columns=["idx"])
-    bookings = bookings.rename(columns={"email": "user"})
-
-    users.to_csv(path.join(data_dir, "users.csv"), index=False)
-    all_guests.to_csv(path.join(data_dir, "guests.csv"), index=False)
-    room_types.to_csv(path.join(data_dir, "room_types.csv"), index=False)
-    amenities.to_csv(path.join(data_dir, "addons.csv"), index=False)
-    rooms.to_csv(path.join(data_dir, "rooms.csv"), index=False)
-    bookings.to_csv(path.join(data_dir, "bookings.csv"), index=False)
+    
