@@ -49,7 +49,7 @@ def get_hotel_data(datagen: DataGenerator, users: pd.DataFrame):
     }
 
 
-def get_generated_data(event, context):
+def get_generated_data(request):
     locations = DataGenerator.get_locations()
     datagen = DataGenerator(getenv("SEED"))
     static_data = get_static_data()
